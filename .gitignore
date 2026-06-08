@@ -1,0 +1,13 @@
+.env
+*.env
+!*.env.example
+*.pem
+*.key
+*.crt
+certs/
+!certs/.gitkeep
+postgres_data/
+.DS_Store
+Thumbs.db
+.vscode/
+*.log
