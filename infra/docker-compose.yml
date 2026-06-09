@@ -45,6 +45,20 @@ services:
     networks:
       - sso-network
 
+  nginx:
+    image: nginx:alpine
+    container_name: sso-nginx
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/etc/nginx/certs:ro
+    depends_on:
+      - keycloak
+    networks:
+      - sso-network
+
 volumes:
   postgres_data:
 
