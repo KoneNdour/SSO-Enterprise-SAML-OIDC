@@ -59,6 +59,16 @@ services:
     networks:
       - sso-network
 
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: sso-tunnel
+    restart: unless-stopped
+    command: tunnel --url http://keycloak:8080
+    depends_on:
+      - keycloak
+    networks:
+      - sso-network
+
 volumes:
   postgres_data:
 
