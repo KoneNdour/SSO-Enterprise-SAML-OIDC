@@ -13,15 +13,15 @@ services:
     envVars:
       - key: KC_DB
         value: postgres
-      - key: KC_DB_URL_HOST
+      - key: DB_HOST
         fromDatabase:
           name: keycloak-db
           property: host
-      - key: KC_DB_URL_PORT
+      - key: DB_PORT
         fromDatabase:
           name: keycloak-db
           property: port
-      - key: KC_DB_URL_DATABASE
+      - key: DB_NAME
         fromDatabase:
           name: keycloak-db
           property: database

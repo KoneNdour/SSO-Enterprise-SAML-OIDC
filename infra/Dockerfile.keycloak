@@ -1,2 +1,2 @@
 FROM quay.io/keycloak/keycloak:24.0
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start", "--http-port=10000", "--hostname-strict=false", "--http-enabled=true", "--proxy=edge", "--db=postgres"]
+ENTRYPOINT ["/bin/sh", "-c", "/opt/keycloak/bin/kc.sh start --http-port=10000 --hostname-strict=false --http-enabled=true --proxy=edge --db=postgres --db-url=jdbc:postgresql://$DB_HOST:$DB_PORT/$DB_NAME"]
