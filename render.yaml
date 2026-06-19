@@ -1,0 +1,31 @@
+databases:
+  - name: keycloak-db
+    plan: free
+    databaseName: keycloak
+    user: keycloak
+
+services:
+  - type: web
+    name: keycloak-esp
+    runtime: docker
+    plan: free
+    dockerfilePath: ./infra/Dockerfile.keycloak
+    envVars:
+      - key: KC_DB
+        value: postgres
+      - key: KC_DB_URL
+        fromDatabase:
+          name: keycloak-db
+          property: connectionString
+      - key: KC_DB_USERNAME
+        fromDatabase:
+          name: keycloak-db
+          property: user
+      - key: KC_DB_PASSWORD
+        fromDatabase:
+          name: keycloak-db
+          property: password
+      - key: KEYCLOAK_ADMIN
+        value: admin
+      - key: KEYCLOAK_ADMIN_PASSWORD
+        generateValue: true
