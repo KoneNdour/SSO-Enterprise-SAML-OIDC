@@ -1,0 +1,32 @@
+version: '3.8'
+
+# =============================================================================
+# Nextcloud — Service Provider SAML
+# M2 — Intégration SAML
+# Ce fichier est destiné à être fusionné/inclus avec infra/docker-compose.yml
+# (réseau partagé : sso-network, défini par M1)
+# =============================================================================
+
+services:
+
+  nextcloud:
+    image: nextcloud:28-apache
+    container_name: sso-nextcloud
+    restart: unless-stopped
+    environment:
+      NEXTCLOUD_ADMIN_USER: ${NEXTCLOUD_ADMIN_USER}
+      NEXTCLOUD_ADMIN_PASSWORD: ${NEXTCLOUD_ADMIN_PASSWORD}
+      NEXTCLOUD_TRUSTED_DOMAINS: ${NEXTCLOUD_TRUSTED_DOMAINS}
+    ports:
+      - "${NEXTCLOUD_PORT:-8081}:80"
+    volumes:
+      - nextcloud_data:/var/www/html
+    networks:
+      - sso-network
+
+networks:
+  sso-network:
+    external: true   # réseau créé par infra/docker-compose.yml (M1)
+
+volumes:
+  nextcloud_data:
